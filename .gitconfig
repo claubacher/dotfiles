@@ -1,0 +1,22 @@
+[color]
+	ui = true
+[user]
+	email = claubacher@gmail.com
+[alias]
+  # "Long" Logs - render's the log with high signal and low noise
+  ll = log \
+  --graph \
+  --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an - %cr)' \
+  --date=relative
+	st = status
+  br = branch
+  co = checkout
+
+# Use the OSX keychain to cache your github credentials
+[credential]
+  helper = osxkeychain
+[core]
+	editor = subl -w
+	excludesfile = /Users/chris/.gitignore
+[push]
+	default = simple
