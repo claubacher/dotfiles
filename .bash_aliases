@@ -1,6 +1,7 @@
 alias mkdir='mkdir -p'
 alias ls='ls -F -G'
 alias g='git'
+alias be='bundle exec'
 
 # Make directory and change into it.
 function mcd() {
@@ -10,4 +11,3 @@ function mcd() {
 function chrome() {
   /usr/bin/open -a "/Applications/Google Chrome.app" $1
 }
-
