@@ -54,6 +54,12 @@ execute pathogen#infect()
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
+
 " Softtabs, 2 spaces
 set tabstop=2    " number of visual spaces
 set softtabstop=2    " number of spaces when editing
