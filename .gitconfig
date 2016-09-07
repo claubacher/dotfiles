@@ -16,7 +16,7 @@
 [credential]
   helper = osxkeychain
 [core]
-	editor = subl -w
+	editor = vim
 	excludesfile = /Users/chris/.gitignore
 [push]
 	default = simple
