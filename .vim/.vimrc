@@ -81,7 +81,8 @@ nnoremap <Leader>n :tabnext<CR>
 nnoremap <Leader>p :tabprevious<CR>
 
 " Open NERDTree on startup if no file specified
-autocmd vimenter * if !argc() | NERDTree | endif
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
 " Close vim if only window left is NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
