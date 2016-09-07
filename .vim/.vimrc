@@ -52,6 +52,8 @@ endif " has("autocmd")
 
 execute pathogen#infect()
 
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
 " Softtabs, 2 spaces
 set tabstop=2    " number of visual spaces
 set softtabstop=2    " number of spaces when editing
