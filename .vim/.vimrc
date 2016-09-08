@@ -54,6 +54,9 @@ execute pathogen#infect()
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|dist)|(\.(swp|ico|git|svn))$'
+
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
