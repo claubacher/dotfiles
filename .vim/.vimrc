@@ -13,8 +13,14 @@ set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
 set hlsearch    " highlight matches
-syntax enable   " enable syntax processing
+syntax on   " enable syntax processing
 set encoding=utf-8
+
+set t_Co=256
+set background=dark
+colorscheme zenburn
+
+let mapleader = " "
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -54,11 +60,15 @@ execute pathogen#infect()
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|dist)|(\.(swp|ico|git|svn))$'
+set wildignore+=*/tmp/*,*.so,*.swp,*~,._*,*.zip
+set wildignore+=*/bower_components/*
+" let g:ctrlp_custom_ignore = {
+"   \ 'dir':  '\v[\/]\.(git|hg|svn|node_modules|bower_components)$',
+"   \ }
 
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>
@@ -69,6 +79,8 @@ set softtabstop=2    " number of spaces when editing
 set shiftwidth=2
 set expandtab    " tabs are actually spaces
 
+autocmd FileType elm setlocal expandtab tabstop=4 shiftwidth=4
+
 " Display extra whitespace
 set list listchars=tab:»·,trail:·
 
@@ -77,24 +89,21 @@ set number
 
 set wildmenu    " visual autocomplete for command menu
 
-let mapleader = " "
-
 nnoremap <Leader>o :tabnew<CR>
 nnoremap <Leader>n :tabnext<CR>
 nnoremap <Leader>p :tabprevious<CR>
 
 " Open NERDTree on startup if no file specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
 " Close vim if only window left is NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 hi TabLineFill ctermfg=Black
 
 let g:user_emmet_leader_key = '<c-z>'
-
-colorscheme badwolf
 
 " move vertically by visual line
 nnoremap j gj
@@ -102,22 +111,15 @@ nnoremap k gk
 
 inoremap jk <ESC>
 
-function! Smart_TabComplete()
-  let line = getline('.')
-  let substr = strpart(line, -1, col('.')+1)
-  let substr = matchstr(substr, "[^ \t]*$")
-  if (strlen(substr)==0)
-    return "\<tab>"
-  endif
-  let has_period = match(substr, '\.') != -1
-  let has_slash = match(substr, '\/') != -1
-  if (!has_period && !has_slash)
-    return "\<C-X>\<C-P>"
-  elseif ( has_slash )
-    return "\<C-X>\<C-F>"
-  else
-    return "\<C-X>\<C-O>"
-  endif
-endfunction
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+nnoremap <Leader>s :SyntasticToggleMode<CR>
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map = { 'passive_filetypes': ['handlebars'] }
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exec = './node_modules/.bin/eslint'
