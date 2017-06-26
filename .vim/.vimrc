@@ -16,10 +16,6 @@ set hlsearch    " highlight matches
 syntax on   " enable syntax processing
 set encoding=utf-8
 
-set t_Co=256
-set background=dark
-colorscheme zenburn
-
 let mapleader = " "
 
 " Only do this part when compiled with support for autocommands.
@@ -57,6 +53,16 @@ else
 endif " has("autocmd")
 
 execute pathogen#infect()
+
+set t_Co=256
+if $ITERM_PROFILE == 'Outside'
+  set background=light
+  colorscheme solarized
+  let g:airline_theme='solarized'
+else
+  set background=dark
+  colorscheme zenburn
+endif
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
@@ -103,13 +109,17 @@ autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 
 hi TabLineFill ctermfg=Black
 
-let g:user_emmet_leader_key = '<c-z>'
-
 " move vertically by visual line
 nnoremap j gj
 nnoremap k gk
 
 inoremap jk <ESC>
+
+hi MatchParen cterm=none ctermbg=black ctermfg=blue
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+au InsertEnter * set cul
+au InsertLeave * set nocul
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
