@@ -11,12 +11,13 @@
 	st = status
   br = branch
   co = checkout
+  recent = for-each-ref --count=10 --sort=-committerdate refs/heads/ --format="%(refname:short)"
 
 # Use the OSX keychain to cache your github credentials
 [credential]
   helper = osxkeychain
 [core]
 	editor = vim
-	excludesfile = /Users/chris/.gitignore
+	excludesfile = ~/.gitignore_global
 [push]
 	default = simple
