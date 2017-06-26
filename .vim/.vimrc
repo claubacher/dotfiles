@@ -86,6 +86,7 @@ set shiftwidth=2
 set expandtab    " tabs are actually spaces
 
 autocmd FileType elm setlocal expandtab tabstop=4 shiftwidth=4
+au BufRead,BufNewFile *.rt set filetype=html
 
 " Display extra whitespace
 set list listchars=tab:»·,trail:·
@@ -133,3 +134,5 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_mode_map = { 'passive_filetypes': ['handlebars'] }
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = './node_modules/.bin/eslint'
+
+let g:jsx_ext_required = 0
