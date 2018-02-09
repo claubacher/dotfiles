@@ -64,20 +64,31 @@ else
   colorscheme zenburn
 endif
 
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-
 set wildignore+=*/tmp/*,*.so,*.swp,*~,._*,*.zip
 set wildignore+=*/bower_components/*
 " let g:ctrlp_custom_ignore = {
 "   \ 'dir':  '\v[\/]\.(git|hg|svn|node_modules|bower_components)$',
 "   \ }
 
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
-cnoreabbrev Ack Ack!
-nnoremap <Leader>a :Ack!<Space>
+" set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+set rtp+=/usr/local/opt/fzf
+nnoremap <Leader>p :FZF<Enter>
+
+" if executable('ag')
+"   let g:ackprg = 'ag --vimgrep'
+"   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+" endif
+" cnoreabbrev Ack Ack!
+" nnoremap <Leader>a :Ack!<Space>
+
+let g:rg_command = '
+  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+  \ -g "*.{js,jsx,rt,json,md,css,scss,html,rb,hbs,handlebars}"
+  \ -g "!{.git,node_modules,vendor,build,public}/*" '
+
+command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+nnoremap <Leader>f :F<Space>
 
 " Softtabs, 2 spaces
 set tabstop=2    " number of visual spaces
@@ -95,10 +106,6 @@ set list listchars=tab:»·,trail:·
 set number
 
 set wildmenu    " visual autocomplete for command menu
-
-nnoremap <Leader>o :tabnew<CR>
-nnoremap <Leader>n :tabnext<CR>
-nnoremap <Leader>p :tabprevious<CR>
 
 " Open NERDTree on startup if no file specified
 " autocmd StdinReadPre * let s:std_in=1
