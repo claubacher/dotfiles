@@ -16,6 +16,9 @@ set hlsearch    " highlight matches
 syntax on   " enable syntax processing
 set encoding=utf-8
 
+set ignorecase
+set smartcase
+
 let mapleader = " "
 
 " Only do this part when compiled with support for autocommands.
