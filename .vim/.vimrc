@@ -88,7 +88,7 @@ nnoremap <Leader>p :FZF<Enter>
 let g:rg_command = '
   \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
   \ -g "*.{js,jsx,rt,json,md,css,scss,html,rb,hbs,handlebars}"
-  \ -g "!{.git,node_modules,vendor,build,public}/*" '
+  \ -g "!{.git,node_modules,vendor,build,public}" '
 
 command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 nnoremap <Leader>f :F<Space>
