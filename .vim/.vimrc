@@ -110,6 +110,8 @@ set number
 
 set wildmenu    " visual autocomplete for command menu
 
+set updatetime=100        " for git-gutter
+
 " Open NERDTree on startup if no file specified
 " autocmd StdinReadPre * let s:std_in=1
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -132,18 +134,25 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 au InsertEnter * set cul
 au InsertLeave * set nocul
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+"
+" nnoremap <Leader>s :SyntasticToggleMode<CR>
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_mode_map = { 'passive_filetypes': ['handlebars', 'javascript'] }
+" let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascript_eslint_exec = './node_modules/.bin/eslint'
 
-nnoremap <Leader>s :SyntasticToggleMode<CR>
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_mode_map = { 'passive_filetypes': ['handlebars', 'javascript'] }
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exec = './node_modules/.bin/eslint'
+let g:airline#extensions#ale#enabled = 1
+let g:ale_lint_on_enter = 0
+let g:ale_linters = {'javascript': ['eslint']}
+let g:ale_javascript_eslint_executable = 'eslint'
+let g:ale_fixers = {'javascript': ['eslint'], 'css': 'prettier'}
+nnoremap <Leader>s :ALEFix<Enter>
 
 let g:jsx_ext_required = 0
 
